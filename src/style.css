@@ -1,0 +1,23 @@
+body {
+  font-family: "PT Mono", monospace;
+}
+.card {
+  border-radius: 20px;
+  background-color: rgb(227, 238, 243);
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+.card-title {
+  font-size: xx-large;
+  font-weight: 900;
+  color: cornflowerblue;
+}
+a {
+  text-decoration: none;
+}
