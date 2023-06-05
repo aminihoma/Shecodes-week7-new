@@ -45,6 +45,7 @@
                   placeholder="Enter a city"
                   autofocus
                   id="city-input"
+                  autocomplete="off"
                 />
               </div>
               <div class="col">
@@ -64,9 +65,9 @@
             <div class="row">
               <div class="col" id="city"></div>
               <div class="col">
-                <i class="bi bi-brightness-high current-icon"></i>
+                <img src="" alt="Weather icon" id="icon" />
                 <span id="degree"></span>
-                <a href="#" id="celsius-degree">°C</a> |
+                <a href="#" id="celsius-degree" class="active">°C</a> |
                 <a href="#" id="fahrenheit-degree">°F</a>
               </div>
             </div>
@@ -74,7 +75,7 @@
           <br />
           <div class="row">
             <div class="col">
-              <span id="time">Tuesday 16:00</span>
+              Last updated: <span id="date"></span>
               <span id="description"></span>
             </div>
           </div>
@@ -123,11 +124,15 @@
         </div>
         <div class="card-footer">
           <small class="text-body-secondary"
-            ><a href="#" target="_blank">Open-source code</a>, by
+            ><a
+              href="https://github.com/aminihoma/Shecodes-week7-new"
+              target="_blank"
+              >Open-source code</a
+            >, by
             <a
               href="https://www.linkedin.com/in/homa-amini-ba327296"
               target="_blank"
-              ><em>Homa Amini</em></a
+              >Homa Amini</a
             ></small
           >
         </div>

@@ -1,31 +1,35 @@
 //⏰Feature #1
-let now = new Date();
-let hour = now.getHours();
-let minute = now.getMinutes();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuseday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = now.getDay();
-if (now.getMinutes() < 10) {
-  minute = "0" + now.getMinutes();
-}
-if (now.getHours() < 10) {
-  hour = "0" + now.getHours();
-}
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
+  let hour = now.getHours();
+  let minute = now.getMinutes();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuseday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = now.getDay();
+  if (now.getMinutes() < 10) {
+    minute = "0" + now.getMinutes();
+  }
+  if (now.getHours() < 10) {
+    hour = "0" + now.getHours();
+  }
 
-let currentDay = `${days[day]}`;
-let currentTime = `${hour}:${minute}`;
-let pastTime = document.querySelector("#time");
-pastTime.innerHTML = `${currentDay}, ${currentTime},`;
+  let currentDay = `${days[day]}`;
+  let currentTime = `${hour}:${minute}`;
+  //let pastTime = document.querySelector("#time");
+  return `${currentDay}, ${currentTime},`;
+}
 
 //🕵️‍♀️Feature #2
-
+function capitalizeFirstletter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 function showTemperature(response) {
   let cityName = response.data.name;
   let cityTemperature = Math.round(response.data.main.temp);
@@ -43,8 +47,21 @@ function showTemperature(response) {
   humidity.innerHTML = response.data.main.humidity;
   let windSpeed = document.querySelector("#wind-speed");
   windSpeed.innerHTML = Math.round(response.data.wind.speed * 3.6);
-  let description = document.querySelector("#description");
-  description.innerHTML = response.data.weather[0].description;
+  let descriptionElement = document.querySelector("#description");
+  descriptionElement.innerHTML = capitalizeFirstletter(
+    response.data.weather[0].description
+  );
+
+  let dateElement = document.querySelector("#date");
+  dateElement.innerHTML = formatDate(response.data.dt * 1000);
+
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
+  celsiusdegree = cityTemperature;
 }
 
 function handleSubmit(event) {
@@ -84,26 +101,29 @@ function showCity(defaultcity) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${defaultcity}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemperature);
 }
+
+let celsiusdegree = null;
 showCity("germany");
 
-//🙀Bonus Feature
-//let celsiusLink = document.querySelector("#celsius-degree");
-//let fahrenheitLink = document.querySelector("#fahrenheit-degree");
+let celsiusLink = document.querySelector("#celsius-degree");
+celsiusLink.addEventListener("click", showCelsius);
 
-//function converttoFahrenheit() {
-//let constantdegree = document.querySelector("#degree");
-//constantdegree.innerHTML = 73;
+let fahrenheitLink = document.querySelector("#fahrenheit-degree");
+fahrenheitLink.addEventListener("click", converttoFahrenheit);
 
-//let convertedDegree = Math.round(constantdegree.innerHTML * 1.8 + 32);
-//constantdegree.innerHTML = convertedDegree;
-//}
-//function showCelsius() {
-//let constantdegree = document.querySelector("#degree");
-//constantdegree.innerHTML = 23;
+function converttoFahrenheit() {
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let constantdegree = document.querySelector("#degree");
+  let convertedDegree = Math.round(celsiusdegree * 1.8 + 32);
+  constantdegree.innerHTML = convertedDegree;
+}
+function showCelsius() {
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let constantdegree = document.querySelector("#degree");
+  //constantdegree.innerHTML = 23;
 
-//let convertedDegree = Math.round((constantdegree.innerHTML - 32) / 1.8);
-//constantdegree.innerHTML = convertedDegree;
-//}
-
-//fahrenheitLink.addEventListener("click", converttoFahrenheit);
-//celsiusLink.addEventListener("click", showCelsius);
+  //let convertedDegree = Math.round((constantdegree.innerHTML - 32) / 1.8);
+  constantdegree.innerHTML = celsiusdegree;
+}
