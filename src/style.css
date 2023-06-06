@@ -3,7 +3,7 @@ body {
 }
 .card {
   border-radius: 20px;
-  background-color: rgb(227, 238, 243);
+  background-color: rgba(142, 197, 222, 0.49);
 }
 
 #myVideo {
@@ -16,7 +16,7 @@ body {
 .card-title {
   font-size: xx-large;
   font-weight: 900;
-  color: cornflowerblue;
+  color: black;
 }
 a {
   text-decoration: none;
